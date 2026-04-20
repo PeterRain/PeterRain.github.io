@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>你的名字 | Personal Portfolio</title>
+  <style>
+    :root {
+      --bg: #f7f5f2;
+      --card: rgba(255, 255, 255, 0.72);
+      --text: #1f2328;
+      --muted: #6b7280;
+      --line: rgba(31, 35, 40, 0.08);
+      --accent: #2f6f6d;
+      --shadow: 0 18px 50px rgba(17, 24, 39, 0.08);
+      --radius: 24px;
+      --max: 1120px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(47, 111, 109, 0.08), transparent 26%),
+        radial-gradient(circle at top right, rgba(31, 35, 40, 0.05), transparent 24%),
+        var(--bg);
+      line-height: 1.7;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    .container {
+      width: min(calc(100% - 32px), var(--max));
+      margin: 0 auto;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(16px);
+      background: rgba(247, 245, 242, 0.72);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 72px;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), #9bc7c4);
+      box-shadow: 0 10px 28px rgba(47, 111, 109, 0.24);
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .hero {
+      padding: 72px 0 28px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 0.9fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-main {
+      padding: 36px;
+      min-height: 100%;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.5);
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-bottom: 20px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    h1, h2, h3, p { margin: 0; }
+
+    h1 {
+      font-size: clamp(2.2rem, 6vw, 4.8rem);
+      line-height: 1.04;
+      letter-spacing: -0.05em;
+      margin-bottom: 18px;
+      max-width: 10ch;
+    }
+
+    .lead {
+      font-size: 1.08rem;
+      color: var(--muted);
+      max-width: 58ch;
+      margin-bottom: 28px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+      background: rgba(255,255,255,0.6);
+      font-weight: 600;
+    }
+
+    .btn:hover { transform: translateY(-1px); border-color: rgba(47, 111, 109, 0.28); }
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+      border-color: transparent;
+      box-shadow: 0 14px 28px rgba(47, 111, 109, 0.22);
+    }
+
+    .hero-side {
+      padding: 28px;
+      display: grid;
+      gap: 16px;
+      align-content: space-between;
+    }
+
+    .portrait {
+      aspect-ratio: 4 / 5;
+      border-radius: 22px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.08), rgba(0,0,0,0.08)),
+        url('profile.jpg') center/cover no-repeat,
+        linear-gradient(135deg, #d9e7e5, #f1ebe4);
+      border: 1px solid var(--line);
+      overflow: hidden;
+      min-height: 320px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .stat {
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.56);
+      border: 1px solid var(--line);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.2rem;
+      margin-bottom: 4px;
+    }
+
+    .section {
+      padding: 28px 0;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .section-title {
+      font-size: 1.55rem;
+      letter-spacing: -0.03em;
+    }
+
+    .section-note {
+      color: var(--muted);
+      max-width: 54ch;
+      font-size: 0.98rem;
+    }
+
+    .about-card {
+      padding: 28px;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .about-text p + p { margin-top: 14px; }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .tag {
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.58);
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .info-box {
+      padding: 20px;
+      border-radius: 20px;
+      background: rgba(47, 111, 109, 0.08);
+      border: 1px solid rgba(47, 111, 109, 0.12);
+    }
+
+    .info-box h3 { margin-bottom: 8px; }
+    .info-box p { color: var(--muted); }
+
+    .grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .work-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .media-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .card {
+      overflow: hidden;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.65);
+      border: 1px solid var(--line);
+      box-shadow: 0 10px 30px rgba(17, 24, 39, 0.05);
+    }
+
+    .thumb {
+      aspect-ratio: 16 / 10;
+      background: linear-gradient(135deg, #dfe9e8, #f5efe8);
+      overflow: hidden;
+    }
+
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .card-body {
+      padding: 18px;
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-top: 6px;
+    }
+
+    .audio-card {
+      padding: 18px;
+      display: grid;
+      gap: 12px;
+    }
+
+    audio {
+      width: 100%;
+    }
+
+    .vlog {
+      aspect-ratio: 16 / 9;
+      border: 0;
+      width: 100%;
+      border-radius: 18px;
+      background: #111;
+    }
+
+    .footer {
+      padding: 34px 0 54px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 920px) {
+      .hero-grid,
+      .about-card,
+      .work-grid,
+      .media-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head {
+        align-items: start;
+        flex-direction: column;
+      }
+
+      h1 { max-width: none; }
+    }
+
+    @media (max-width: 640px) {
+      .hero { padding-top: 42px; }
+      .hero-main, .hero-side, .about-card { padding: 22px; }
+      .stats { grid-template-columns: 1fr; }
+      .nav-inner { flex-direction: column; align-items: start; padding: 14px 0; }
+      .nav-links { gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true"></div>
+        <span>你的名字</span>
+      </div>
+      <nav class="nav-links" aria-label="页面导航">
+        <a href="#about">关于我</a>
+        <a href="#works">作品集</a>
+        <a href="#piano">钢琴</a>
+        <a href="#photo">摄影</a>
+        <a href="#contact">联系</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero-grid">
+        <div class="panel hero-main">
+          <div class="eyebrow">Personal Portfolio · Minimal Design</div>
+          <h1>把热爱，安静地摆成一座作品展厅。</h1>
+          <p class="lead">
+            这里是一页简约个人网站，适合展示你的个人介绍、钢琴演奏、摄影作品和其他创作。你可以直接替换文字、图片和音频，快速变成属于你的主页。
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#works">查看作品</a>
+            <a class="btn" href="#contact">联系我</a>
+          </div>
+        </div>
+
+        <aside class="panel hero-side">
+          <div class="portrait" aria-label="个人照片占位图"></div>
+          <div class="stats">
+            <div class="stat">
+              <strong>12+</strong>
+              <span class="meta">钢琴曲目</span>
+            </div>
+            <div class="stat">
+              <strong>36</strong>
+              <span class="meta">摄影作品</span>
+            </div>
+            <div class="stat">
+              <strong>8年</strong>
+              <span class="meta">创作与练习</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">关于我</h2>
+          <p class="section-note">用几句话介绍你的背景、风格、兴趣和创作方向，保持简洁，会更有高级感。</p>
+        </div>
+      </div>
+
+      <div class="panel about-card">
+        <div class="about-text">
+          <p>
+            你好，我是<strong>你的名字</strong>。我喜欢钢琴、摄影和用镜头记录日常中的光。我的创作风格偏向克制、自然、干净，喜欢把细节留给观众慢慢看见。
+          </p>
+          <p>
+            钢琴对我来说像一条安静的河，摄影则是把流动的瞬间轻轻按下暂停键。这个网站会展示我最喜欢的演奏片段、摄影作品和一些个人创作笔记。
+          </p>
+          <div class="tag-list">
+            <span class="tag">Piano</span>
+            <span class="tag">Photography</span>
+            <span class="tag">Vlog</span>
+            <span class="tag">Minimal</span>
+            <span class="tag">Creative Storytelling</span>
+          </div>
+        </div>
+
+        <div class="info-box">
+          <h3>个人信息</h3>
+          <p>姓名：你的名字</p>
+          <p>城市：你的城市</p>
+          <p>风格：极简、自然、安静</p>
+          <p>邮箱：your@email.com</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="works">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">作品集</h2>
+          <p class="section-note">这里可以放你的代表作，推荐使用 3 到 6 个项目，每个项目配一句话说明。</p>
+        </div>
+      </div>
+
+      <div class="grid work-grid">
+        <article class="card">
+          <div class="thumb">
+            <img src="work1.jpg" alt="作品一" />
+          </div>
+          <div class="card-body">
+            <h3>城市夜色系列</h3>
+            <p class="meta">摄影项目 · 霓虹、街景、静谧感</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="thumb">
+            <img src="work2.jpg" alt="作品二" />
+          </div>
+          <div class="card-body">
+            <h3>钢琴独奏集</h3>
+            <p class="meta">音乐作品 · 古典与现代曲目</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="thumb">
+            <img src="work3.jpg" alt="作品三" />
+          </div>
+          <div class="card-body">
+            <h3>日常片段记录</h3>
+            <p class="meta">Vlog · 练琴、出行与生活切片</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="piano">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">钢琴演奏</h2>
+          <p class="section-note">把音频文件放到同一文件夹里，替换 src 就能播放。支持 mp3、m4a 等常见格式。</p>
+        </div>
+      </div>
+
+      <div class="grid" style="grid-template-columns: repeat(2, 1fr);">
+        <div class="panel audio-card">
+          <div>
+            <h3>月光奏鸣曲</h3>
+            <p class="meta">Beethoven · Live Recording</p>
+          </div>
+          <audio controls src="piano1.mp3"></audio>
+        </div>
+
+        <div class="panel audio-card">
+          <div>
+            <h3>卡农</h3>
+            <p class="meta">Pachelbel · Practice Session</p>
+          </div>
+          <audio controls src="piano2.mp3"></audio>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="photo">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">摄影作品</h2>
+          <p class="section-note">建议放三到六张同风格图片，形成统一的视觉节奏。</p>
+        </div>
+      </div>
+
+      <div class="grid media-grid">
+        <article class="card">
+          <div class="thumb"><img src="photo1.jpg" alt="摄影作品 1" /></div>
+          <div class="card-body"><h3>光影与街角</h3><p class="meta">城市 / 人文</p></div>
+        </article>
+        <article class="card">
+          <div class="thumb"><img src="photo2.jpg" alt="摄影作品 2" /></div>
+          <div class="card-body"><h3>窗边的下午</h3><p class="meta">静物 / 氛围</p></div>
+        </article>
+        <article class="card">
+          <div class="thumb"><img src="photo3.jpg" alt="摄影作品 3" /></div>
+          <div class="card-body"><h3>夜晚的色块</h3><p class="meta">夜景 / 霓虹</p></div>
+        </article>
+        <article class="card">
+          <div class="thumb"><img src="photo4.jpg" alt="摄影作品 4" /></div>
+          <div class="card-body"><h3>风里的树</h3><p class="meta">自然 / 纪实</p></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="vlog">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Vlog / 视频</h2>
+          <p class="section-note">直接替换成 YouTube 嵌入链接即可，也可以换成 B站 iframe。</p>
+        </div>
+      </div>
+
+      <div class="panel" style="padding: 18px;">
+        <iframe
+          class="vlog"
+          src="https://www.youtube.com/embed/你的视频ID"
+          title="Vlog video"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="panel" style="padding: 28px;">
+        <div class="section-head" style="margin-bottom: 0;">
+          <div>
+            <h2 class="section-title">联系我</h2>
+            <p class="section-note">把邮箱、社交账号或作品平台放在这里，方便别人找到你。</p>
+          </div>
+          <a class="btn btn-primary" href="mailto:your@email.com">发送邮件</a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>© 2026 你的名字 · Created with a quiet, minimal rhythm.</p>
+    </footer>
+  </main>
+</body>
+</html>
